@@ -1,0 +1,415 @@
+<!doctype html>
+<html lang="cs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="description" content="Zahradní sauny v Praze na klíč: sudové, POD, Patio Thermo, Round Cube a infrasauny. Doprava, montáž a elektroinstalace.">
+<title>Žár Sauny Praha</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Source+Sans+3:wght@400;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: smrková zelená + medové dřevo; úvod s teploměrem, katalog s filtrem, dopytový formulář. */
+:root{
+  --bg:#eef1ed; --surface:#f8faf7; --ink:#1c2a23; --muted:#5b6b62; --line:#cfd8d1;
+  --spruce:#24463a; --honey:#b5762a; --honey-soft:#f1e2cc; --wood1:#c99560; --wood2:#a8733f;
+  --f-display:"Bricolage Grotesque",ui-sans-serif,system-ui,sans-serif;
+  --f-body:"Source Sans 3",ui-sans-serif,system-ui,sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#121a16; --surface:#19241f; --ink:#e7ede9; --muted:#9db0a5; --line:#2c3b33;
+  --spruce:#8fc2ab; --honey:#e3a457; --honey-soft:#3a2c1a; --wood1:#9b6c3f; --wood2:#7a5230; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#121a16; --surface:#19241f; --ink:#e7ede9; --muted:#9db0a5; --line:#2c3b33;
+  --spruce:#8fc2ab; --honey:#e3a457; --honey-soft:#3a2c1a; --wood1:#9b6c3f; --wood2:#7a5230; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font:400 17px/1.6 var(--f-body)}
+.wrap{max-width:1120px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1,h2,h3{font-family:var(--f-display);text-wrap:balance;margin:0;line-height:1.1}
+a{color:inherit}
+.mono{font-family:var(--f-mono);font-variant-numeric:tabular-nums}
+
+header{border-bottom:1px solid var(--line)}
+header .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:18px;flex-wrap:wrap}
+.logo{font:700 26px/1 var(--f-display);letter-spacing:-.02em;color:var(--spruce);text-decoration:none}
+.logo span{color:var(--honey)}
+nav{display:flex;gap:22px;flex-wrap:wrap;font-weight:600}
+nav a{text-decoration:none;color:var(--muted)}
+nav a:hover{color:var(--ink)}
+
+.hero .wrap{display:grid;grid-template-columns:1.4fr 1fr;gap:48px;padding-block:64px 56px;align-items:center}
+.eyebrow{font:500 13px/1 var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--honey)}
+.hero h1{font-size:clamp(40px,6vw,72px);letter-spacing:-.03em;margin:14px 0 20px}
+.hero p{max-width:52ch;color:var(--muted);font-size:19px;margin:0 0 28px}
+.btns{display:flex;gap:12px;flex-wrap:wrap}
+.btn{display:inline-block;padding:13px 22px;border-radius:6px;font-weight:600;text-decoration:none;border:2px solid var(--spruce);cursor:pointer;font-family:var(--f-body);font-size:16px}
+.btn.primary{background:var(--spruce);color:var(--bg)}
+.btn.ghost{background:transparent;color:var(--spruce)}
+.btn:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible,.chip:focus-visible{outline:3px solid var(--honey);outline-offset:2px}
+
+/* teploměr */
+.gauge{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:26px;display:grid;gap:14px}
+.gauge .row{display:grid;grid-template-columns:110px 1fr 56px;gap:12px;align-items:center;font-size:15px}
+.bar{height:10px;border-radius:5px;background:var(--line);overflow:hidden}
+.bar i{display:block;height:100%;background:var(--honey);border-radius:5px}
+.gauge .big{font:700 64px/1 var(--f-display);color:var(--honey);letter-spacing:-.03em}
+.gauge small{color:var(--muted)}
+
+section{padding-block:56px}
+.sec-head{display:flex;justify-content:space-between;align-items:end;gap:20px;flex-wrap:wrap;margin-bottom:28px}
+.sec-head h2{font-size:clamp(30px,4vw,44px);letter-spacing:-.02em}
+.note{font-size:14px;color:var(--muted);background:var(--honey-soft);padding:8px 12px;border-radius:6px}
+
+.toolbar{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:10px}
+.filters{display:flex;gap:8px;flex-wrap:wrap}
+.sort{display:flex;align-items:center;gap:10px;font-weight:600;font-size:15px}
+.sort select{width:auto}
+.count{color:var(--muted);font-size:14px;margin:0 0 20px}
+.badges{display:flex;gap:6px;flex-wrap:wrap}
+.badge{font:500 12px var(--f-mono);padding:3px 8px;border-radius:4px;background:var(--honey-soft);color:var(--ink)}
+.badge.stock{background:var(--spruce);color:var(--bg)}
+.chip{border:1px solid var(--line);background:var(--surface);color:var(--ink);padding:8px 14px;border-radius:99px;font:600 15px var(--f-body);cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--spruce);border-color:var(--spruce);color:var(--bg)}
+
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:10px;overflow:hidden;display:flex;flex-direction:column}
+.art{height:150px;background:var(--honey-soft);display:grid;place-items:center;overflow:hidden}
+.art img{width:100%;height:100%;object-fit:cover}
+.card .art{height:200px}
+.body{padding:20px;display:flex;flex-direction:column;gap:12px;flex:1}
+.type{font:500 12px var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.card h3{font-size:24px}
+.card p{margin:0;color:var(--muted);font-size:16px}
+.specs{display:grid;grid-template-columns:1fr 1fr;gap:6px 14px;margin:0;font-size:14px}
+.specs dt{color:var(--muted)}
+.specs dd{margin:0;font-family:var(--f-mono);text-align:right}
+.foot{margin-top:auto;display:flex;justify-content:space-between;align-items:center;gap:10px;padding-top:12px;border-top:1px solid var(--line)}
+.price{font:700 20px var(--f-display)}
+.price small{font:400 13px var(--f-body);color:var(--muted)}
+.card .btn{padding:9px 14px;font-size:15px}
+
+.konf{display:grid;grid-template-columns:1.5fr 1fr;gap:28px;align-items:start}
+.konf-opts{display:grid;gap:18px}
+fieldset{border:0;padding:0;margin:0;min-width:0}
+legend{font:500 12px var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+.opts{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:8px}
+.opt{position:relative}
+.opt input{position:absolute;opacity:0;width:1px;height:1px}
+.opt span{display:flex;flex-direction:column;gap:2px;padding:12px 14px;border:1px solid var(--line);border-radius:8px;background:var(--surface);cursor:pointer;font-weight:600;font-size:15px;height:100%}
+.opt small{font:400 13px var(--f-mono);color:var(--muted)}
+.opt input:checked+span{border-color:var(--spruce);box-shadow:inset 0 0 0 1px var(--spruce)}
+.opt input:focus-visible+span{outline:3px solid var(--honey);outline-offset:2px}
+.konf-sum{background:var(--surface);border:1px solid var(--line);border-radius:10px;overflow:hidden;position:sticky;top:calc(env(safe-area-inset-top,0px) + 16px)}
+.sum-in{padding:20px;display:grid;gap:14px}
+.total{display:flex;justify-content:space-between;align-items:baseline;border-top:1px solid var(--line);padding-top:12px;gap:10px}
+.total .price{font-size:26px}
+@media (max-width:900px){.konf{grid-template-columns:1fr}.konf-sum{position:static}}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;counter-reset:s}
+.step{border-top:3px solid var(--honey);padding-top:16px}
+.step b{font:500 13px var(--f-mono);color:var(--honey)}
+.step h3{font-size:20px;margin:6px 0 8px}
+.step p{margin:0;color:var(--muted);font-size:16px}
+
+.contact{display:grid;grid-template-columns:1fr 1.3fr;gap:40px;align-items:start}
+.contact .info p{color:var(--muted);max-width:44ch}
+.contact .info dl{display:grid;grid-template-columns:auto 1fr;gap:8px 16px;margin-top:20px}
+.contact .info dt{color:var(--muted)}
+.contact .info dd{margin:0;font-weight:600}
+form{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:24px;display:grid;gap:16px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+label{display:grid;gap:6px;font-weight:600;font-size:15px}
+input,select,textarea{font:400 16px var(--f-body);padding:11px 12px;border:1px solid var(--line);border-radius:6px;background:var(--bg);color:var(--ink);width:100%}
+textarea{min-height:100px;resize:vertical}
+.ok{background:var(--honey-soft);padding:14px;border-radius:6px;font-weight:600}
+footer{border-top:1px solid var(--line);color:var(--muted);font-size:14px}
+footer .wrap{padding-block:28px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+
+@media (max-width:900px){
+  .hero .wrap,.contact{grid-template-columns:1fr}
+  .grid{grid-template-columns:repeat(2,1fr)}
+  .steps{grid-template-columns:repeat(2,1fr)}
+}
+@media (max-width:560px){
+  .grid,.steps,.two{grid-template-columns:1fr}
+  nav{gap:14px;font-size:15px}
+  .gauge .row{grid-template-columns:90px 1fr 48px}
+}
+@media (prefers-reduced-motion:no-preference){.bar i{transition:width .6s ease}}
+</style>
+<script>window.WEB=true</script>
+</head>
+<body>
+
+
+<header>
+  <div class="wrap">
+    <a class="logo" href="#top">žár<span>.</span></a>
+    <nav>
+      <a href="#sauny">Sauny</a>
+      <a href="#postup">Jak to probíhá</a>
+      <a href="#kontakt">Poptávka</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero" style="padding:0">
+    <div class="wrap">
+      <div>
+        <div class="eyebrow">Zahradní sauny · Praha a okolí</div>
+        <h1>Sauna na vaší zahradě, postavená a zapojená na klíč.</h1>
+        <p>29 modelů ze severského smrku, termoborovice a kanadského červeného cedru. Přivezeme, postavíme na připravený základ a kamna zapojí náš elektrikář.</p>
+        <div class="btns">
+          <a class="btn primary" href="#sauny">Prohlédnout sauny</a>
+          <a class="btn ghost" href="#kontakt">Nezávazná poptávka</a>
+        </div>
+      </div>
+      <div class="gauge" aria-label="Typické hodnoty finské sauny">
+        <div><span class="big mono">85 °C</span><br><small>typická teplota finské sauny</small></div>
+        <div class="row"><span>Teplota</span><span class="bar"><i style="width:85%"></i></span><span class="mono">85 °C</span></div>
+        <div class="row"><span>Vlhkost</span><span class="bar"><i style="width:15%"></i></span><span class="mono">15 %</span></div>
+        <div class="row"><span>Nahřátí</span><span class="bar"><i style="width:45%"></i></span><span class="mono">45 min</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="sauny">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>Zahradní sauny</h2>
+        <span class="note">Orientační ceny vč. DPH a dopravy, přepočteno ze zlotých.</span>
+      </div>
+      <div class="toolbar">
+        <div class="filters" role="group" aria-label="Řada saun">
+          <button class="chip" id="f-all" data-f="vse" aria-pressed="true">Vše</button>
+          <button class="chip" id="f-sud" data-f="sud" aria-pressed="false">Sudové</button>
+          <button class="chip" id="f-pod" data-f="pod" aria-pressed="false">POD</button>
+          <button class="chip" id="f-patio" data-f="patio" aria-pressed="false">Patio Thermo</button>
+          <button class="chip" id="f-cube" data-f="cube" aria-pressed="false">Round Cube</button>
+          <button class="chip" id="f-ir" data-f="infra" aria-pressed="false">Infra</button>
+        </div>
+        <label class="sort" for="razeni">Řadit
+          <select id="razeni"><option value="up">Od nejlevnější</option><option value="down">Od nejdražší</option><option value="size">Podle délky</option></select>
+        </label>
+      </div>
+      <p class="count" id="count"></p>
+      <div class="grid" id="grid"></div>
+    </div>
+  </section>
+
+  <section id="konfigurator">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>Sestavte si sudovou saunu</h2>
+        <span class="note">Sud Classic: zvolte délku a doplňky, cena se počítá hned.</span>
+      </div>
+      <div class="konf">
+        <div class="konf-opts">
+          <fieldset><legend>Délka sudu</legend><div class="opts" id="k-delka"></div></fieldset>
+          <fieldset><legend>Předsíň</legend><div class="opts" id="k-predsin"></div></fieldset>
+          <fieldset><legend>Okno</legend><div class="opts" id="k-okno"></div></fieldset>
+          <fieldset><legend>Kamna Harvia vč. montáže</legend><div class="opts" id="k-kamna"></div></fieldset>
+        </div>
+        <aside class="konf-sum" aria-live="polite">
+          <div class="art" id="k-art"></div>
+          <div class="sum-in">
+            <span class="type">Vaše sestava</span>
+            <dl class="specs" id="k-rozpis"></dl>
+            <div class="total"><span>Celkem orientačně</span><span class="price mono" id="k-total"></span></div>
+            <button class="btn primary" id="k-poptat" type="button">Poptat tuto sestavu</button>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <section id="postup" style="background:var(--surface);border-block:1px solid var(--line)">
+    <div class="wrap">
+      <div class="sec-head"><h2>Jak to probíhá</h2></div>
+      <div class="steps">
+        <div class="step"><b>KROK 1</b><h3>Konzultace</h3><p>Probereme místo, velikost a rozpočet. Přijedeme na zaměření zdarma po Praze.</p></div>
+        <div class="step"><b>KROK 2</b><h3>Nabídka</h3><p>Do 3 pracovních dnů pošleme cenu včetně dopravy, montáže a elektroinstalace.</p></div>
+        <div class="step"><b>KROK 3</b><h3>Montáž</h3><p>Saunu sestavíme za 1 až 2 dny. Kamna připojíme na 400 V s vlastním jističem.</p></div>
+        <div class="step"><b>KROK 4</b><h3>Předání</h3><p>Ukážeme ovládání, první zatopení a péči o dřevo. Revizní zpráva je součástí.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="kontakt">
+    <div class="wrap contact">
+      <div class="info">
+        <h2 style="font-size:clamp(30px,4vw,44px)">Nezávazná poptávka</h2>
+        <p>Napište nám, co si představujete. Ozveme se do 24 hodin v pracovní dny.</p>
+        <dl>
+          <dt>Telefon</dt><dd class="mono">+420 000 000 000</dd>
+          <dt>E-mail</dt><dd>info@zar-sauny.cz</dd>
+          <dt>Oblast</dt><dd>Praha a Středočeský kraj</dd>
+        </dl>
+      </div>
+      <form id="form" novalidate>
+        <div class="two">
+          <label for="jmeno">Jméno<input id="jmeno" name="jmeno" required autocomplete="name"></label>
+          <label for="telefon">Telefon<input id="telefon" name="telefon" type="tel" autocomplete="tel"></label>
+        </div>
+        <label for="email">E-mail<input id="email" name="email" type="email" required autocomplete="email"></label>
+        <div class="two">
+          <label for="model">Model<select id="model" name="model"><option value="">Zatím nevím</option></select></label>
+          <label for="misto">Umístění<select id="misto" name="misto"><option>Interiér</option><option>Zahrada</option><option>Terasa</option></select></label>
+        </div>
+        <label for="zprava">Zpráva<textarea id="zprava" name="zprava" placeholder="Např. rozměry místnosti, Praha 6, termín na jaro"></textarea></label>
+        <button class="btn primary" type="submit">Odeslat poptávku</button>
+        <div class="ok" id="ok" hidden>Děkujeme, poptávku jsme přijali. Ozveme se do 24 hodin.</div>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 žár. sauny Praha</span>
+    <span>Prodej, montáž a elektroinstalace saun</span>
+  </div>
+</footer>
+
+<script>
+/* Ceny dodavatele v PLN (vč. DPH a dopravy). KURZ a PRIRAZKA upravte podle potřeby. */
+const KURZ = 5.36, PRIRAZKA = 1.0;
+const sauny=[
+ {id:"bs150",rada:"sud",nazev:"Sud BS150 PRO",pln:10500,rozmer:[150,205,207],osob:"2–3",drevo:"Severský smrk 40 mm",kamna:"4,5 kW · 400 V",kg:700,skladem:true,popis:"Klasická sudová sauna se skleněnými dveřmi a lavicemi z termoosiky."},
+ {id:"bs220",rada:"sud",nazev:"Sud BS220",pln:12900,rozmer:[220,205,207],osob:"4",drevo:"Severský smrk 40 mm",kamna:"9 kW · 400 V",kg:900,skladem:true,popis:"Delší sud se dvěma lavicemi 194 cm, prostor pro celou rodinu."},
+ {id:"pod136",rada:"pod",nazev:"POD 136 Mini",pln:13495,rozmer:[136,205,220],osob:"2",drevo:"Borovice 42 mm",kamna:"3,6 kW · 230 V",kg:720,popis:"Nejmenší POD s jednou lavicí z olše, zapojí se i do běžné sítě 230 V."},
+ {id:"relax180",rada:"chata",nazev:"RelaxMini 180",pln:14990,rozmer:[189,219,233],osob:"2–3",drevo:"Masivní smrk 42 mm",kamna:"dle výběru",kg:500,skladem:true,popis:"Domek se sedlovou střechou a lavicemi z osiky do L. Střešní fólie v balení."},
+ {id:"mini130",rada:"infra",nazev:"Mini 130 Infrared",pln:15750,rozmer:[130,180,190],osob:"2",drevo:"Smrk 30 mm",kamna:"IR 2,75 kW · 230 V",kg:400,popis:"Sudová infrasauna se 6 zářiči a Bluetooth reproduktory. Volitelně i kamna."},
+ {id:"pod186",rada:"pod",nazev:"POD 186 Mini s verandou",pln:16495,rozmer:[186,205,220],osob:"2",drevo:"Borovice 42 mm",kamna:"3,6 kW · 230 V",kg:780,popis:"POD s krytou verandou před vstupem, kde se dá posedět i v dešti."},
+ {id:"pod170",rada:"pod",nazev:"POD 170",pln:17495,rozmer:[170,205,220],osob:"3–4",drevo:"Borovice 42 mm",kamna:"9 kW · 400 V",kg:800,popis:"Dvě protilehlé lavice z olše, silná kamna pro rychlé nahřátí."},
+ {id:"mini160",rada:"infra",nazev:"Mini 160 Infrared",pln:17495,rozmer:[160,180,190],osob:"4",drevo:"Smrk 30 mm",kamna:"IR 3,5 kW · 230 V",kg:500,popis:"Infrasauna pro čtyři s 10 zářiči a dvěma lavicemi. Bluetooth audio."},
+ {id:"pod240",rada:"pod",nazev:"POD 240",pln:18495,rozmer:[240,205,220],osob:"až 6",drevo:"Borovice 42 mm",kamna:"9 kW · 400 V",kg:850,popis:"Lavice 202 cm, na kterých se dá ležet. Šest míst k sezení."},
+ {id:"pod290",rada:"pod",nazev:"POD 290",pln:20495,rozmer:[290,205,220],osob:"až 6",drevo:"Borovice 42 mm",kamna:"9 kW · 400 V",kg:1100,popis:"Prostorný POD s předsíní pro odložení ručníků a oblečení."},
+ {id:"patioxxs",rada:"patio",nazev:"Patio XXS Thermo",pln:25995,rozmer:[204,187,241],osob:"až 6",drevo:"Termoborovice 40 mm",kamna:"dle výběru",kg:650,popis:"Moderní kostka s izolačním dvojsklem. Termodřevo nepotřebuje nátěr."},
+ {id:"pod400",rada:"pod",nazev:"POD 400",pln:27995,rozmer:[400,205,215],osob:"až 6",drevo:"Borovice 42 mm",kamna:"9 kW · 400 V",kg:1300,popis:"Největší POD s verandou 120 cm. Sauna i místo na odpočinek."},
+ {id:"cabana140",rada:"infra",nazev:"Cabana 140 Infrared",pln:28995,rozmer:[140,210,220],osob:"2",drevo:"Kanadský cedr 38 mm",kamna:"IR 8 zářičů",kg:800,popis:"Červený cedr voní a vydrží. Infrapanely, volitelně kamna 3,6 kW."},
+ {id:"patioxs",rada:"patio",nazev:"Patio XS Thermo",pln:32995,rozmer:[234,219,241],osob:"až 6",drevo:"Termoborovice 40 mm",kamna:"dle výběru",kg:850,popis:"Lavice 222 cm pro ležení, velké prosklené čelo do zahrady."},
+ {id:"patios",rada:"patio",nazev:"Patio S Thermo",pln:35495,rozmer:[239,239,241],osob:"až 6",drevo:"Termoborovice 40 mm",kamna:"dle výběru",kg:950,popis:"Čtvercový půdorys a izolační sklo. Elegantní tvar pro moderní dům."},
+ {id:"cabana226",rada:"infra",nazev:"Cabana 226 Infrared",pln:37995,rozmer:[226,219,220],osob:"3–4",drevo:"Kanadský cedr 38 mm",kamna:"IR 12 zářičů · kamna 6–9 kW",kg:1000,popis:"Kombinace infra a klasické sauny v jedné cedrové kabině."},
+ {id:"cubemini",rada:"cube",nazev:"Round Cube Mini",pln:44900,rozmer:[220,200,220],osob:"až 4",drevo:"Thermowood 40 mm",kamna:"dle výběru",kg:900,popis:"Zaoblená kostka s benátským zrcadlovým sklem. Zvenku nevidíte dovnitř."},
+ {id:"patiom",rada:"patio",nazev:"Patio M Thermo",pln:46495,rozmer:[333,239,241],osob:"až 6",drevo:"Termoborovice 40 mm",kamna:"dle výběru",kg:1280,popis:"Tři lavice a delší kabina. Pro rodinu i přátele."},
+ {id:"patiosplus",rada:"patio",nazev:"Patio S Plus Thermo",pln:46995,rozmer:[462,239,254],osob:"až 6",drevo:"Termoborovice 40 mm",kamna:"dle výběru",kg:1300,popis:"Sauna s altánem 243 × 231 cm pod jednou střechou."},
+ {id:"patiol",rada:"patio",nazev:"Patio L Thermo",pln:48995,rozmer:[400,239,241],osob:"až 6",drevo:"Termoborovice 40 mm",kamna:"dle výběru",kg:1570,popis:"Velká předsíň 192 × 192 cm na převlékání a odpočinek."},
+ {id:"cubesingle",rada:"cube",nazev:"Round Cube Single",pln:50000,rozmer:[240,308,223],osob:"až 8",drevo:"Thermowood 40 mm",kamna:"dle výběru",kg:1010,popis:"Kompletní montážní balíček včetně šindelové střechy. Až osm míst."},
+ {id:"cubedouble",rada:"cube",nazev:"Round Cube Double",pln:54900,rozmer:[240,308,223],osob:"až 6",drevo:"Thermowood 40 mm",kamna:"dle výběru",kg:1100,popis:"Dvě místnosti: sauna a předsíň. Délku lze prodloužit o 20 cm."},
+ {id:"cuberelax",rada:"cube",nazev:"Round Cube Relax",pln:55900,rozmer:[200,308,220],osob:"až 6",drevo:"Thermowood 40 mm",kamna:"dle výběru",kg:1100,popis:"Izolační zrcadlové dvojsklo v ceně. Klidný prostor pro odpočinek."},
+ {id:"cubemirror",rada:"cube",nazev:"Round Cube Double Mirror",pln:57650,rozmer:[240,308,223],osob:"až 6",drevo:"Thermowood 40 mm",kamna:"dle výběru",kg:1100,popis:"Dvoumístnostní kostka s celým zrcadlovým čelem."},
+ {id:"hot200",rada:"sud",konfig:true,nazev:"Sud Classic 200",pln:10000,rozmer:[200],osob:"2–4",drevo:"Ruční truhlářská výroba",kamna:"dle konfigurace",popis:"Sud vyráběný ručně v polské truhlárně. Předsíň, okno i kamna si sestavíte."},
+ {id:"hot250",rada:"sud",konfig:true,nazev:"Sud Classic 250",pln:11000,rozmer:[250],osob:"4",drevo:"Ruční truhlářská výroba",kamna:"dle konfigurace",popis:"Oblíbená délka pro rodinu. Lze doplnit vnitřní předsíň a panoramatické okno."},
+ {id:"hot300",rada:"sud",konfig:true,nazev:"Sud Classic 300",pln:12000,rozmer:[300],osob:"4–6",drevo:"Ruční truhlářská výroba",kamna:"dle konfigurace",popis:"Prostorný sud, ve kterém se vejde sauna i předsíň na převlékání."},
+ {id:"hot400",rada:"sud",konfig:true,nazev:"Sud Classic 400",pln:13000,rozmer:[400],osob:"až 6",drevo:"Ruční truhlářská výroba",kamna:"dle konfigurace",popis:"Nejdelší sud s místem na velkou předsíň nebo krytou terasu."},
+ {id:"patiolplus",rada:"patio",nazev:"Patio L Plus Thermo",pln:59995,rozmer:[606,239,255],osob:"až 6",drevo:"Termoborovice 40 mm",kamna:"dle výběru",kg:1850,popis:"Vlajková loď: sauna, předsíň a altán, celkem přes 6 metrů."}
+];
+const FOTO_BASE="https://www.supersauna.pl/media/catalog/product/cache/1b73720242ed7d021ffa4fa0bed1388c/", FOTO={"bs150": "o/g/ogrodowa-sauna-swierk-2-lawki-small_1.png", "bs220": "s/a/sauna-ogrodowa-swierk-220-piec-elektryczny-small.png", "pod136": "p/o/pod-thermo-sauna-zewnetrzne.jpg", "relax180": "s/a/sauna-ogrodowa-relaxmini180_2_1.jpg", "mini130": "o/g/ogrodowa-sauna-130-infrared.jpg", "pod186": "_/a/_awki-_aweczki-daszek-zadaszenie-przed-saun_-pod-186.jpg", "pod170": "w/_/w_a_ciwa-impregnacja-malowanie-zabezpieczenie-sauna-pod-170.jpeg", "mini160": "s/a/sauna-ogrodowa-infrared-160.jpg", "pod240": "n/a/nawiew-wywiew-kratka-wentylacyjna-powietrzna-sauna-pod-240.jpg", "pod290": "u/p/upi_ksz-sw_j-ogr_d-ogr_deknaj_atwiej-sauna-pod-290.jpeg", "patioxxs": "p/a/patio-xxs-sauna-ogrodowa.jpg", "pod400": "s/a/sauna-pod-beczka-240_1.jpg", "cabana140": "s/a/sauna-ogrodowa-infrared-140.jpeg", "patioxs": "p/a/patio-xs-sauna-ogrodowa.jpg", "patios": "p/a/patio-s-sauna-ogrodowa.jpg", "cabana226": "s/a/sauna-ogrodowa-226-cabana-infrared-combi-2_1.jpg", "cubemini": "f/r/front-avanti-maxi-szklo-lustrzane.jpg", "patiom": "p/a/patio-m-sauna-ogrodowa.jpg", "patiosplus": "p/a/patio-s-plus-sauna-ogrodowa.jpg", "patiol": "p/a/patio-l-sauna-ogrodowa_1.jpg", "cubesingle": "s/a/sauna-ogrodowa-round-cube-single.jpg", "cubedouble": "s/a/sauna-avanti-300-na-zewnatrz.jpg", "cuberelax": "s/a/sauna-ogrodowa-340-avanti.jpg", "cubemirror": "m/i/mirror-outdoor-sauna_1.jpg", "patiolplus": "p/a/patio-l-plus-sauna-ogrodowa_1.jpg"};
+const rady={sud:"Sudová sauna",pod:"Sauna POD",chata:"Saunový domek",infra:"Infrasauna",patio:"Patio Thermo",cube:"Round Cube"};
+const kc=n=>(Math.round(n*KURZ*PRIRAZKA/100)*100).toLocaleString("cs-CZ");
+
+function art(r){
+  const W="var(--wood1)",D="var(--wood2)",G="var(--spruce)",S="var(--honey-soft)",H="var(--honey)";
+  const ground=`<rect x="10" y="90" width="140" height="4" rx="2" fill="${D}"/>`;
+  const shapes={
+    sud:`<ellipse cx="80" cy="54" rx="56" ry="34" fill="${W}"/><ellipse cx="80" cy="54" rx="44" ry="26" fill="${D}"/><rect x="68" y="38" width="24" height="40" rx="3" fill="${S}"/>`,
+    infra:`<rect x="30" y="22" width="100" height="66" rx="3" fill="#8a4b32"/><path d="M24 24 L136 18 L136 26 L24 30Z" fill="${D}"/><rect x="66" y="34" width="28" height="54" rx="2" fill="${S}"/><rect x="72" y="40" width="4" height="40" fill="${H}"/><rect x="84" y="40" width="4" height="40" fill="${H}"/>`,
+    pod:`<path d="M34 88 V40 Q34 12 80 12 Q126 12 126 40 V88Z" fill="${W}"/><path d="M44 88 V44 Q44 22 80 22 Q116 22 116 44 V88Z" fill="${D}"/><rect x="68" y="44" width="24" height="44" rx="3" fill="${S}"/>`,
+    chata:`<path d="M28 44 L80 12 L132 44Z" fill="${G}"/><rect x="36" y="42" width="88" height="46" fill="${W}"/><rect x="68" y="52" width="24" height="36" rx="2" fill="${S}"/>`,
+    patio:`<rect x="24" y="16" width="112" height="8" fill="${G}"/><rect x="30" y="24" width="100" height="64" fill="${D}"/><rect x="36" y="30" width="56" height="58" fill="${S}"/><rect x="98" y="38" width="26" height="50" fill="${W}"/>`,
+    cube:`<rect x="26" y="16" width="108" height="72" rx="22" fill="${D}"/><rect x="38" y="26" width="84" height="56" rx="14" fill="${G}" opacity=".85"/><path d="M48 32 L70 32 L56 74 L44 74Z" fill="${S}" opacity=".35"/>`
+  };
+  return `<svg viewBox="0 0 160 100" width="170" height="106" aria-hidden="true">${shapes[r]}${ground}</svg>`;
+}
+
+const grid=document.getElementById("grid"), sel=document.getElementById("model"), count=document.getElementById("count"), razeni=document.getElementById("razeni");
+let filtr="vse";
+function render(){
+  let list=sauny.filter(s=>filtr==="vse"||s.rada===filtr||(filtr==="sud"&&s.rada==="chata"));
+  if(razeni.value==="up") list.sort((a,b)=>a.pln-b.pln);
+  if(razeni.value==="down") list.sort((a,b)=>b.pln-a.pln);
+  if(razeni.value==="size") list.sort((a,b)=>a.rozmer[0]-b.rozmer[0]);
+  count.textContent=`${list.length} ${list.length===1?"model":list.length<5?"modely":"modelů"}`;
+  grid.innerHTML=list.map(s=>`
+    <article class="card">
+      <div class="art">${FOTO[s.id]&&window.WEB?`<img src="${FOTO_BASE+FOTO[s.id]}" alt="${s.nazev}" loading="lazy" onerror="this.replaceWith(document.createRange().createContextualFragment(art('${s.rada}')))">`:art(s.rada)}</div>
+      <div class="body">
+        <div class="badges"><span class="type">${rady[s.rada]}</span>${s.skladem?'<span class="badge stock">Skladem</span>':""}${s.konfig?'<span class="badge">Na míru</span>':""}</div>
+        <h3>${s.nazev}</h3>
+        <p>${s.popis}</p>
+        <dl class="specs">
+          <dt>${s.rozmer.length>1?"Rozměr":"Délka"}</dt><dd>${s.rozmer.join(" × ")} cm</dd>
+          <dt>Kapacita</dt><dd>${s.osob} os.</dd>
+          <dt>Dřevo</dt><dd>${s.drevo}</dd>
+          <dt>Ohřev</dt><dd>${s.kamna}</dd>
+          ${s.kg?`<dt>Hmotnost</dt><dd>${s.kg.toLocaleString("cs-CZ")} kg</dd>`:""}
+        </dl>
+        <div class="foot">
+          <span class="price">${s.konfig?"od ":""}${kc(s.pln)} Kč <small>${s.konfig?"základ":"vč. DPH"}</small></span>
+          ${s.konfig?`<button class="btn primary" data-konf="${s.id}" type="button">Sestavit</button>`:`<button class="btn ghost" data-id="${s.id}" type="button">Poptat</button>`}
+        </div>
+      </div>
+    </article>`).join("");
+}
+sauny.forEach(s=>{const o=document.createElement("option");o.value=s.id;o.textContent=s.nazev;sel.appendChild(o)});
+render();
+
+document.querySelectorAll(".chip").forEach(c=>c.addEventListener("click",()=>{
+  document.querySelectorAll(".chip").forEach(x=>x.setAttribute("aria-pressed",x===c));
+  filtr=c.dataset.f; render();
+}));
+razeni.addEventListener("change",render);
+grid.addEventListener("click",e=>{
+  const b=e.target.closest("button[data-id]"); if(!b) return;
+  sel.value=b.dataset.id;
+  document.getElementById("kontakt").scrollIntoView({behavior:"smooth"});
+  document.getElementById("jmeno").focus({preventScroll:true});
+});
+/* Konfigurátor sudu (Hotsauna) – ceny v PLN */
+const K={
+  delka:[["hot200","200 cm",10000],["hot250","250 cm",11000],["hot300","300 cm",12000],["hot400","400 cm",13000]],
+  predsin:[["bez","Bez předsíně",0],["vnitrni","Vnitřní předsíň",2500],["balkon","Venkovní balkon",500]],
+  okno:[["bez","Bez okna",0],["pul","Půlpanoramatické",700],["cele","Celopanoramatické",1400]],
+  kamna:[["bez","Bez kamen",0],["kip","Elektrická KIP 9 kW",2500],["cil","Elektrická Cilindro 9 kW",3000],["m3","Na dřevo M3, přikládání zevnitř",4500],["m3sl","Na dřevo M3 SL, přikládání zvenku",6500]]
+};
+for(const [g,opts] of Object.entries(K)){
+  document.getElementById("k-"+g).innerHTML=opts.map((o,i)=>`<label class="opt" for="k-${g}-${o[0]}"><input type="radio" name="k-${g}" id="k-${g}-${o[0]}" value="${o[0]}" ${i===(g==="delka"?1:0)?"checked":""}><span>${o[1]}<small>${g==="delka"?kc(o[2])+" Kč":o[2]?"+ "+kc(o[2])+" Kč":"v ceně"}</small></span></label>`).join("");
+}
+document.getElementById("k-art").innerHTML=art("sud");
+const konfSel=()=>Object.fromEntries(Object.keys(K).map(g=>{const v=document.querySelector(`input[name=k-${g}]:checked`).value;return [g,K[g].find(o=>o[0]===v)]}));
+const labels={delka:"Sud Classic",predsin:"Předsíň",okno:"Okno",kamna:"Kamna"};
+function konfRender(){
+  const s=konfSel(); let sum=0;
+  document.getElementById("k-rozpis").innerHTML=Object.entries(s).map(([g,o])=>{sum+=o[2];return `<dt>${labels[g]}</dt><dd>${g==="delka"?o[1]:o[1].replace(/^Bez .*/,"—")}</dd>`}).join("");
+  document.getElementById("k-total").textContent=kc(sum)+" Kč";
+}
+document.querySelector(".konf-opts").addEventListener("change",konfRender);
+konfRender();
+grid.addEventListener("click",e=>{
+  const b=e.target.closest("button[data-konf]"); if(!b) return;
+  document.getElementById("k-delka-"+b.dataset.konf).checked=true; konfRender();
+  document.getElementById("konfigurator").scrollIntoView({behavior:"smooth"});
+});
+document.getElementById("k-poptat").addEventListener("click",()=>{
+  const s=konfSel();
+  sel.value=s.delka[0];
+  document.getElementById("misto").value="Zahrada";
+  document.getElementById("zprava").value=`Sestava: Sud Classic ${s.delka[1]}, ${s.predsin[1]}, okno: ${s.okno[1].toLowerCase()}, kamna: ${s.kamna[1].toLowerCase()}. Orientační cena ${document.getElementById("k-total").textContent}.`;
+  document.getElementById("kontakt").scrollIntoView({behavior:"smooth"});
+  document.getElementById("jmeno").focus({preventScroll:true});
+});
+
+document.getElementById("form").addEventListener("submit",e=>{
+  e.preventDefault();
+  const j=document.getElementById("jmeno"), m=document.getElementById("email");
+  if(!j.value.trim()){j.focus();return}
+  if(!/^\S+@\S+\.\S+$/.test(m.value)){m.focus();return}
+  document.getElementById("ok").hidden=false;
+  e.target.querySelector("button[type=submit]").disabled=true;
+});
+</script>
+
+</body>
+</html>
