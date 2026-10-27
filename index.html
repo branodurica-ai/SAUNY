@@ -4,138 +4,208 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="description" content="Zahradní sauny v Praze na klíč: sudové, POD, Patio Thermo, Round Cube a infrasauny. Doprava, montáž a elektroinstalace.">
+<meta name="theme-color" content="#14231c">
 <title>Žár Sauny Praha</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Source+Sans+3:wght@400;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <style>
-/* Layout: smrková zelená + medové dřevo; úvod s teploměrem, katalog s filtrem, dopytový formulář. */
+/* Layout: večerní severská atmosféra – tmavý smrkový úvod se svítící saunou, světlý katalog s jednotným fotorámem, tmavá patička. */
 :root{
-  --bg:#eef1ed; --surface:#f8faf7; --ink:#1c2a23; --muted:#5b6b62; --line:#cfd8d1;
-  --spruce:#24463a; --honey:#b5762a; --honey-soft:#f1e2cc; --wood1:#c99560; --wood2:#a8733f;
+  --bg:#f2f0eb; --surface:#ffffff; --ink:#1b2621; --muted:#5d6a63; --line:#dcdcd3;
+  --spruce:#1f3d31; --honey:#b06d22; --honey-soft:#f3e4cd; --wood1:#c99560; --wood2:#a8733f;
+  --night:#14231c; --night2:#1d3328; --on-night:#eef2ec; --on-night-muted:#a9bbb0; --glow:#f4b45e;
+  --photo-bg:#ece4d8;
   --f-display:"Bricolage Grotesque",ui-sans-serif,system-ui,sans-serif;
   --f-body:"Source Sans 3",ui-sans-serif,system-ui,sans-serif;
   --f-mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
 }
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
-  --bg:#121a16; --surface:#19241f; --ink:#e7ede9; --muted:#9db0a5; --line:#2c3b33;
-  --spruce:#8fc2ab; --honey:#e3a457; --honey-soft:#3a2c1a; --wood1:#9b6c3f; --wood2:#7a5230; color-scheme:dark}}
+  --bg:#101814; --surface:#17211c; --ink:#e8ede9; --muted:#9fb0a6; --line:#2a3832;
+  --spruce:#9ccbb4; --honey:#e9a656; --honey-soft:#352818; --wood1:#9b6c3f; --wood2:#7a5230;
+  --night:#0b1310; --night2:#14211b; --on-night:#eef2ec; --on-night-muted:#a3b5aa; --glow:#f4b45e;
+  --photo-bg:#e3dbcf; color-scheme:dark}}
 :root[data-theme="dark"]{
-  --bg:#121a16; --surface:#19241f; --ink:#e7ede9; --muted:#9db0a5; --line:#2c3b33;
-  --spruce:#8fc2ab; --honey:#e3a457; --honey-soft:#3a2c1a; --wood1:#9b6c3f; --wood2:#7a5230; color-scheme:dark}
+  --bg:#101814; --surface:#17211c; --ink:#e8ede9; --muted:#9fb0a6; --line:#2a3832;
+  --spruce:#9ccbb4; --honey:#e9a656; --honey-soft:#352818; --wood1:#9b6c3f; --wood2:#7a5230;
+  --night:#0b1310; --night2:#14211b; --on-night:#eef2ec; --on-night-muted:#a3b5aa; --glow:#f4b45e;
+  --photo-bg:#e3dbcf; color-scheme:dark}
 *{box-sizing:border-box}
+html{scroll-behavior:smooth}
 body{background:var(--bg);color:var(--ink);font:400 17px/1.6 var(--f-body)}
-.wrap{max-width:1120px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
-h1,h2,h3{font-family:var(--f-display);text-wrap:balance;margin:0;line-height:1.1}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--night)}
+.wrap{max-width:1180px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1,h2,h3{font-family:var(--f-display);text-wrap:balance;margin:0;line-height:1.08}
 a{color:inherit}
 .mono{font-family:var(--f-mono);font-variant-numeric:tabular-nums}
+.eyebrow{font:500 12px/1 var(--f-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--honey)}
 
-header{border-bottom:1px solid var(--line)}
-header .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:18px;flex-wrap:wrap}
-.logo{font:700 26px/1 var(--f-display);letter-spacing:-.02em;color:var(--spruce);text-decoration:none}
-.logo span{color:var(--honey)}
-nav{display:flex;gap:22px;flex-wrap:wrap;font-weight:600}
-nav a{text-decoration:none;color:var(--muted)}
-nav a:hover{color:var(--ink)}
+/* hlavička */
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:color-mix(in srgb,var(--night) 88%,transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);color:var(--on-night);border-bottom:1px solid rgba(255,255,255,.06)}
+header .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:14px}
+.logo{font:700 28px/1 var(--f-display);letter-spacing:-.03em;color:var(--on-night);text-decoration:none}
+.logo span{color:var(--glow)}
+nav{display:flex;gap:26px;align-items:center;font-weight:600;font-size:16px}
+nav a{text-decoration:none;color:var(--on-night-muted);transition:color .2s}
+nav a:hover{color:var(--on-night)}
+nav .nav-cta{color:var(--night);background:var(--glow);padding:8px 16px;border-radius:99px}
+nav .nav-cta:hover{color:var(--night)}
 
-.hero .wrap{display:grid;grid-template-columns:1.4fr 1fr;gap:48px;padding-block:64px 56px;align-items:center}
-.eyebrow{font:500 13px/1 var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--honey)}
-.hero h1{font-size:clamp(40px,6vw,72px);letter-spacing:-.03em;margin:14px 0 20px}
-.hero p{max-width:52ch;color:var(--muted);font-size:19px;margin:0 0 28px}
 .btns{display:flex;gap:12px;flex-wrap:wrap}
-.btn{display:inline-block;padding:13px 22px;border-radius:6px;font-weight:600;text-decoration:none;border:2px solid var(--spruce);cursor:pointer;font-family:var(--f-body);font-size:16px}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:14px 24px;border-radius:99px;font-weight:600;text-decoration:none;border:0;cursor:pointer;font-family:var(--f-body);font-size:16px;transition:transform .2s,background .2s,box-shadow .2s}
+.btn:hover{transform:translateY(-1px)}
 .btn.primary{background:var(--spruce);color:var(--bg)}
-.btn.ghost{background:transparent;color:var(--spruce)}
-.btn:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible,.chip:focus-visible{outline:3px solid var(--honey);outline-offset:2px}
+.btn.ghost{background:transparent;color:var(--spruce);box-shadow:inset 0 0 0 1.5px var(--spruce)}
+.btn.glow{background:var(--glow);color:var(--night);box-shadow:0 10px 30px -10px var(--glow)}
+.btn.line{background:transparent;color:var(--on-night);box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.3)}
+.btn:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible,.chip:focus-visible,a:focus-visible{outline:3px solid var(--honey);outline-offset:2px}
 
-/* teploměr */
-.gauge{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:26px;display:grid;gap:14px}
-.gauge .row{display:grid;grid-template-columns:110px 1fr 56px;gap:12px;align-items:center;font-size:15px}
-.bar{height:10px;border-radius:5px;background:var(--line);overflow:hidden}
-.bar i{display:block;height:100%;background:var(--honey);border-radius:5px}
-.gauge .big{font:700 64px/1 var(--f-display);color:var(--honey);letter-spacing:-.03em}
-.gauge small{color:var(--muted)}
+/* úvod */
+.hero{background:radial-gradient(120% 90% at 75% 40%,var(--night2) 0%,var(--night) 60%);color:var(--on-night);overflow:hidden}
+.hero .wrap{display:grid;grid-template-columns:1.05fr 1fr;gap:40px;align-items:center;padding-block:72px 0}
+.hero h1{font-size:clamp(42px,6.2vw,80px);letter-spacing:-.035em;margin:18px 0 22px;font-weight:700}
+.hero h1 em{font-style:normal;color:var(--glow)}
+.hero p{max-width:48ch;color:var(--on-night-muted);font-size:19px;margin:0 0 32px}
+.hero-copy{padding-bottom:72px}
+.scene{align-self:end;width:100%;max-width:560px;justify-self:end}
+.scene svg{display:block;width:100%;height:auto}
+.steam path{animation:rise 7s ease-in-out infinite;transform-origin:center bottom;opacity:0}
+.steam path:nth-child(2){animation-delay:2.3s}
+.steam path:nth-child(3){animation-delay:4.6s}
+@keyframes rise{0%{opacity:0;transform:translateY(20px)}25%{opacity:.5}100%{opacity:0;transform:translateY(-60px) scaleX(1.3)}}
+.window-glow{animation:flicker 4s ease-in-out infinite}
+@keyframes flicker{50%{opacity:.85}}
+@media (prefers-reduced-motion:reduce){.steam path,.window-glow{animation:none}.steam path{opacity:.35}}
+.facts{display:flex;gap:28px;flex-wrap:wrap;margin-top:40px;padding-top:24px;border-top:1px solid rgba(255,255,255,.1)}
+.facts div{display:grid;gap:2px}
+.facts b{font:700 26px/1 var(--f-display);color:var(--on-night)}
+.facts span{font-size:14px;color:var(--on-night-muted)}
 
-section{padding-block:56px}
-.sec-head{display:flex;justify-content:space-between;align-items:end;gap:20px;flex-wrap:wrap;margin-bottom:28px}
-.sec-head h2{font-size:clamp(30px,4vw,44px);letter-spacing:-.02em}
-.note{font-size:14px;color:var(--muted);background:var(--honey-soft);padding:8px 12px;border-radius:6px}
+/* pruh výhod */
+.trust{background:var(--surface);border-bottom:1px solid var(--line)}
+.trust .wrap{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;padding-block:26px}
+.trust div{display:flex;gap:12px;align-items:center;font-weight:600;font-size:15px;line-height:1.3}
+.trust svg{flex:none;width:36px;height:36px;padding:8px;border-radius:10px;background:var(--honey-soft);color:var(--honey)}
+.trust small{display:block;font-weight:400;color:var(--muted)}
 
-.toolbar{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:10px}
+section{padding-block:80px}
+.sec-head{display:grid;gap:12px;margin-bottom:32px;max-width:720px}
+.sec-head h2{font-size:clamp(32px,4.4vw,52px);letter-spacing:-.025em}
+.sec-head p{margin:0;color:var(--muted);font-size:18px}
+.note{font-size:14px;color:var(--muted)}
+
+.toolbar{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:12px}
 .filters{display:flex;gap:8px;flex-wrap:wrap}
 .sort{display:flex;align-items:center;gap:10px;font-weight:600;font-size:15px}
-.sort select{width:auto}
-.count{color:var(--muted);font-size:14px;margin:0 0 20px}
-.badges{display:flex;gap:6px;flex-wrap:wrap}
-.badge{font:500 12px var(--f-mono);padding:3px 8px;border-radius:4px;background:var(--honey-soft);color:var(--ink)}
-.badge.stock{background:var(--spruce);color:var(--bg)}
-.chip{border:1px solid var(--line);background:var(--surface);color:var(--ink);padding:8px 14px;border-radius:99px;font:600 15px var(--f-body);cursor:pointer}
-.chip[aria-pressed="true"]{background:var(--spruce);border-color:var(--spruce);color:var(--bg)}
+.sort select{width:auto;border-radius:99px;padding:9px 14px}
+.count{color:var(--muted);font-size:14px;margin:0 0 22px}
+.chip{border:1px solid var(--line);background:var(--surface);color:var(--ink);padding:9px 16px;border-radius:99px;font:600 15px var(--f-body);cursor:pointer;transition:background .2s,border-color .2s}
+.chip:hover{border-color:var(--muted)}
+.chip[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--bg)}
 
-.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
-.card{background:var(--surface);border:1px solid var(--line);border-radius:10px;overflow:hidden;display:flex;flex-direction:column}
-.art{height:150px;background:var(--honey-soft);display:grid;place-items:center;overflow:hidden}
-.art img{width:100%;height:100%;object-fit:cover}
-.card .art{height:200px}
-.body{padding:20px;display:flex;flex-direction:column;gap:12px;flex:1}
-.type{font:500 12px var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
-.card h3{font-size:24px}
+/* karty */
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.card{background:var(--surface);border-radius:16px;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 1px 2px rgba(0,0,0,.04),0 0 0 1px var(--line);transition:transform .25s,box-shadow .25s}
+.card:hover{transform:translateY(-3px);box-shadow:0 18px 40px -18px rgba(20,35,28,.35),0 0 0 1px var(--line)}
+.frame{position:relative;aspect-ratio:4/3;max-width:100%;background:var(--photo-bg);overflow:hidden;display:grid;place-items:center}
+.frame img{width:100%;height:100%;object-fit:cover;mix-blend-mode:multiply;filter:saturate(.88) contrast(1.03) sepia(.08);transition:transform .5s}
+.frame img.cut{object-fit:contain;padding:18px 22px 10px}
+.frame::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 60%,rgba(20,35,28,.18));pointer-events:none}
+.card:hover .frame img{transform:scale(1.04)}
+.frame svg{width:62%;height:auto}
+.tag{position:absolute;left:14px;top:14px;z-index:1;display:flex;gap:6px;flex-wrap:wrap}
+.tag span{font:500 11px/1 var(--f-mono);letter-spacing:.08em;text-transform:uppercase;padding:6px 9px;border-radius:99px;background:rgba(255,255,255,.88);color:#1b2621}
+.tag .stock{background:#1f3d31;color:#fff}
+.tag .custom{background:#f4b45e;color:#14231c}
+.body{padding:20px 22px 22px;display:flex;flex-direction:column;gap:12px;flex:1}
+.card h3{font-size:24px;letter-spacing:-.015em}
 .card p{margin:0;color:var(--muted);font-size:16px}
-.specs{display:grid;grid-template-columns:1fr 1fr;gap:6px 14px;margin:0;font-size:14px}
+.specs{display:grid;grid-template-columns:auto 1fr;gap:0;margin:0;font-size:14px}
+.specs dt,.specs dd{padding:7px 0;border-top:1px solid var(--line)}
 .specs dt{color:var(--muted)}
 .specs dd{margin:0;font-family:var(--f-mono);text-align:right}
-.foot{margin-top:auto;display:flex;justify-content:space-between;align-items:center;gap:10px;padding-top:12px;border-top:1px solid var(--line)}
-.price{font:700 20px var(--f-display)}
-.price small{font:400 13px var(--f-body);color:var(--muted)}
-.card .btn{padding:9px 14px;font-size:15px}
+.foot{margin-top:auto;display:flex;justify-content:space-between;align-items:center;gap:10px;padding-top:6px}
+.price{font:700 22px var(--f-display);letter-spacing:-.01em}
+.price small{display:block;font:400 12px var(--f-body);color:var(--muted);letter-spacing:0}
+.card .btn{padding:10px 18px;font-size:15px}
 
-.konf{display:grid;grid-template-columns:1.5fr 1fr;gap:28px;align-items:start}
-.konf-opts{display:grid;gap:18px}
+/* konfigurátor */
+#konfigurator{background:var(--surface);border-block:1px solid var(--line)}
+.konf{display:grid;grid-template-columns:1.5fr 1fr;gap:32px;align-items:start}
+.konf-opts{display:grid;gap:22px}
 fieldset{border:0;padding:0;margin:0;min-width:0}
-legend{font:500 12px var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
-.opts{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:8px}
+legend{font:500 12px var(--f-mono);letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+.opts{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:10px}
 .opt{position:relative}
 .opt input{position:absolute;opacity:0;width:1px;height:1px}
-.opt span{display:flex;flex-direction:column;gap:2px;padding:12px 14px;border:1px solid var(--line);border-radius:8px;background:var(--surface);cursor:pointer;font-weight:600;font-size:15px;height:100%}
+.opt span{display:flex;flex-direction:column;gap:2px;padding:14px 16px;border:1px solid var(--line);border-radius:12px;background:var(--bg);cursor:pointer;font-weight:600;font-size:15px;height:100%;transition:border-color .2s,background .2s}
+.opt span:hover{border-color:var(--muted)}
 .opt small{font:400 13px var(--f-mono);color:var(--muted)}
-.opt input:checked+span{border-color:var(--spruce);box-shadow:inset 0 0 0 1px var(--spruce)}
+.opt input:checked+span{border-color:var(--honey);background:var(--honey-soft);box-shadow:inset 0 0 0 1px var(--honey)}
 .opt input:focus-visible+span{outline:3px solid var(--honey);outline-offset:2px}
-.konf-sum{background:var(--surface);border:1px solid var(--line);border-radius:10px;overflow:hidden;position:sticky;top:calc(env(safe-area-inset-top,0px) + 16px)}
-.sum-in{padding:20px;display:grid;gap:14px}
-.total{display:flex;justify-content:space-between;align-items:baseline;border-top:1px solid var(--line);padding-top:12px;gap:10px}
-.total .price{font-size:26px}
-@media (max-width:900px){.konf{grid-template-columns:1fr}.konf-sum{position:static}}
-.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;counter-reset:s}
-.step{border-top:3px solid var(--honey);padding-top:16px}
-.step b{font:500 13px var(--f-mono);color:var(--honey)}
-.step h3{font-size:20px;margin:6px 0 8px}
+.konf-sum{background:var(--night);color:var(--on-night);border-radius:16px;overflow:hidden;position:sticky;top:calc(env(safe-area-inset-top,0px) + 84px)}
+.konf-sum .frame{aspect-ratio:16/9;background:var(--night2)}
+.konf-sum .frame::after{display:none}
+.sum-in{padding:22px;display:grid;gap:14px}
+.konf-sum .eyebrow{color:var(--glow)}
+.konf-sum .specs dt,.konf-sum .specs dd{border-color:rgba(255,255,255,.1)}
+.konf-sum .specs dt{color:var(--on-night-muted)}
+.total{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+.total span:first-child{color:var(--on-night-muted);font-size:15px}
+.total .price{font-size:30px;color:var(--glow)}
+
+/* dřevo */
+.woods{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.wood{border-radius:16px;overflow:hidden;background:var(--surface);box-shadow:0 0 0 1px var(--line)}
+.grain{height:150px}
+.grain.smrk{background:repeating-linear-gradient(92deg,#e9d3ad 0 7px,#dfc497 7px 9px,#ecd9b6 9px 19px,#d9bb8a 19px 20px)}
+.grain.thermo{background:repeating-linear-gradient(91deg,#8a5a34 0 8px,#7a4c2a 8px 10px,#94653d 10px 21px,#6e4224 21px 22px)}
+.grain.cedr{background:repeating-linear-gradient(93deg,#b0613f 0 6px,#9c5233 6px 8px,#c07150 8px 17px,#8c4529 17px 18px)}
+.wood div:last-child{padding:20px 22px 24px;display:grid;gap:8px}
+.wood h3{font-size:22px}
+.wood p{margin:0;color:var(--muted);font-size:16px}
+.wood .mono{font-size:13px;color:var(--honey)}
+
+/* postup */
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:28px}
+.step{display:grid;gap:10px;align-content:start}
+.step b{font:700 56px/1 var(--f-display);color:var(--honey);opacity:.9;letter-spacing:-.04em}
+.step h3{font-size:21px}
 .step p{margin:0;color:var(--muted);font-size:16px}
 
-.contact{display:grid;grid-template-columns:1fr 1.3fr;gap:40px;align-items:start}
-.contact .info p{color:var(--muted);max-width:44ch}
-.contact .info dl{display:grid;grid-template-columns:auto 1fr;gap:8px 16px;margin-top:20px}
-.contact .info dt{color:var(--muted)}
+/* kontakt */
+#kontakt{background:var(--night);color:var(--on-night)}
+#kontakt .sec-head p,#kontakt .info p{color:var(--on-night-muted)}
+.contact{display:grid;grid-template-columns:1fr 1.25fr;gap:56px;align-items:start}
+.contact .info dl{display:grid;grid-template-columns:auto 1fr;gap:12px 20px;margin:28px 0 0}
+.contact .info dt{color:var(--on-night-muted)}
 .contact .info dd{margin:0;font-weight:600}
-form{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:24px;display:grid;gap:16px}
+form{background:var(--surface);color:var(--ink);border-radius:18px;padding:28px;display:grid;gap:16px;box-shadow:0 30px 60px -30px rgba(0,0,0,.5)}
 .two{display:grid;grid-template-columns:1fr 1fr;gap:16px}
 label{display:grid;gap:6px;font-weight:600;font-size:15px}
-input,select,textarea{font:400 16px var(--f-body);padding:11px 12px;border:1px solid var(--line);border-radius:6px;background:var(--bg);color:var(--ink);width:100%}
-textarea{min-height:100px;resize:vertical}
-.ok{background:var(--honey-soft);padding:14px;border-radius:6px;font-weight:600}
-footer{border-top:1px solid var(--line);color:var(--muted);font-size:14px}
-footer .wrap{padding-block:28px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+input,select,textarea{font:400 16px var(--f-body);padding:12px 14px;border:1px solid var(--line);border-radius:10px;background:var(--bg);color:var(--ink);width:100%}
+textarea{min-height:110px;resize:vertical}
+form .btn{justify-self:start}
+.ok{background:var(--honey-soft);padding:14px;border-radius:10px;font-weight:600}
+footer{background:var(--night);color:var(--on-night-muted);font-size:14px;border-top:1px solid rgba(255,255,255,.08)}
+footer .wrap{padding-block:30px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+footer .logo{font-size:22px}
 
-@media (max-width:900px){
-  .hero .wrap,.contact{grid-template-columns:1fr}
-  .grid{grid-template-columns:repeat(2,1fr)}
-  .steps{grid-template-columns:repeat(2,1fr)}
+@media (max-width:960px){
+  .hero .wrap{grid-template-columns:1fr;padding-top:48px}
+  .hero-copy{padding-bottom:0}
+  .scene{justify-self:center;max-width:480px}
+  .contact,.konf{grid-template-columns:1fr}
+  .konf-sum{position:static}
+  .grid,.woods{grid-template-columns:repeat(2,1fr)}
+  .steps,.trust .wrap{grid-template-columns:repeat(2,1fr)}
 }
-@media (max-width:560px){
-  .grid,.steps,.two{grid-template-columns:1fr}
-  nav{gap:14px;font-size:15px}
-  .gauge .row{grid-template-columns:90px 1fr 48px}
+@media (max-width:620px){
+  nav a:not(.nav-cta){display:none}
+  .grid,.woods,.steps,.two,.trust .wrap{grid-template-columns:1fr}
+  section{padding-block:56px}
+  .facts{gap:20px}
 }
-@media (prefers-reduced-motion:no-preference){.bar i{transition:width .6s ease}}
 </style>
 <script>window.WEB=true</script>
 </head>
@@ -147,8 +217,10 @@ footer .wrap{padding-block:28px;display:flex;justify-content:space-between;gap:1
     <a class="logo" href="#top">žár<span>.</span></a>
     <nav>
       <a href="#sauny">Sauny</a>
+      <a href="#konfigurator">Konfigurátor</a>
+      <a href="#drevo">Dřevo</a>
       <a href="#postup">Jak to probíhá</a>
-      <a href="#kontakt">Poptávka</a>
+      <a class="nav-cta" href="#kontakt">Poptávka</a>
     </nav>
   </div>
 </header>
@@ -156,29 +228,73 @@ footer .wrap{padding-block:28px;display:flex;justify-content:space-between;gap:1
 <main id="top">
   <section class="hero" style="padding:0">
     <div class="wrap">
-      <div>
+      <div class="hero-copy">
         <div class="eyebrow">Zahradní sauny · Praha a okolí</div>
-        <h1>Sauna na vaší zahradě, postavená a zapojená na klíč.</h1>
-        <p>29 modelů ze severského smrku, termoborovice a kanadského červeného cedru. Přivezeme, postavíme na připravený základ a kamna zapojí náš elektrikář.</p>
+        <h1>Vlastní sauna na zahradě. <em>Zatopíte už tuto zimu.</em></h1>
+        <p>Sudové, POD, Patio i Round Cube sauny ze severského smrku, termoborovice a kanadského cedru. Přivezeme, postavíme a kamna zapojí náš elektrikář.</p>
         <div class="btns">
-          <a class="btn primary" href="#sauny">Prohlédnout sauny</a>
-          <a class="btn ghost" href="#kontakt">Nezávazná poptávka</a>
+          <a class="btn glow" href="#sauny">Vybrat saunu</a>
+          <a class="btn line" href="#konfigurator">Sestavit sud na míru</a>
+        </div>
+        <div class="facts">
+          <div><b class="mono">29</b><span>modelů skladem i na míru</span></div>
+          <div><b class="mono">1–2 dny</b><span>montáž na místě</span></div>
+          <div><b class="mono">85 °C</b><span>za 45 minut od zapnutí</span></div>
         </div>
       </div>
-      <div class="gauge" aria-label="Typické hodnoty finské sauny">
-        <div><span class="big mono">85 °C</span><br><small>typická teplota finské sauny</small></div>
-        <div class="row"><span>Teplota</span><span class="bar"><i style="width:85%"></i></span><span class="mono">85 °C</span></div>
-        <div class="row"><span>Vlhkost</span><span class="bar"><i style="width:15%"></i></span><span class="mono">15 %</span></div>
-        <div class="row"><span>Nahřátí</span><span class="bar"><i style="width:45%"></i></span><span class="mono">45 min</span></div>
+      <div class="scene" aria-hidden="true">
+        <svg viewBox="0 0 560 440" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <radialGradient id="win" cx="50%" cy="55%" r="60%"><stop offset="0" stop-color="#ffe2a8"/><stop offset=".55" stop-color="#f4b45e"/><stop offset="1" stop-color="#c9742a"/></radialGradient>
+            <radialGradient id="halo" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#f4b45e" stop-opacity=".45"/><stop offset="1" stop-color="#f4b45e" stop-opacity="0"/></radialGradient>
+            <linearGradient id="staves" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#b9824c"/><stop offset=".5" stop-color="#9a6634"/><stop offset="1" stop-color="#6e4422"/></linearGradient>
+            <linearGradient id="endcap" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#c8935c"/><stop offset="1" stop-color="#8d5a2e"/></linearGradient>
+          </defs>
+          <circle cx="470" cy="70" r="26" fill="#e9e4d2" opacity=".9"/>
+          <g fill="#ffffff" opacity=".55"><circle cx="90" cy="40" r="1.6"/><circle cx="180" cy="90" r="1.2"/><circle cx="300" cy="30" r="1.4"/><circle cx="390" cy="120" r="1"/><circle cx="520" cy="160" r="1.3"/><circle cx="40" cy="140" r="1"/></g>
+          <g fill="#0e1a14">
+            <path d="M40 360 L80 150 L120 360Z"/><path d="M95 360 L140 110 L185 360Z"/>
+            <path d="M430 360 L478 130 L526 360Z"/><path d="M490 360 L530 190 L570 360Z"/>
+          </g>
+          <g fill="#162a21"><path d="M0 360 L30 230 L60 360Z"/><path d="M380 360 L410 220 L440 360Z"/></g>
+          <ellipse cx="290" cy="300" rx="190" ry="120" fill="url(#halo)"/>
+          <path d="M0 362 Q280 330 560 362 L560 440 L0 440Z" fill="#0b1510"/>
+          <rect x="120" y="352" width="340" height="10" rx="3" fill="#5b3a1f"/>
+          <path d="M150 352 L150 236 Q150 168 210 168 L400 168 Q430 168 430 236 L430 352Z" fill="url(#staves)"/>
+          <g stroke="#5e3a1c" stroke-opacity=".55" stroke-width="2"><line x1="150" y1="200" x2="430" y2="200"/><line x1="150" y1="236" x2="430" y2="236"/><line x1="150" y1="272" x2="430" y2="272"/><line x1="150" y1="308" x2="430" y2="308"/></g>
+          <path d="M160 352 L160 240 Q160 176 210 176 L214 176 Q164 176 164 240 L164 352Z" fill="#000" opacity=".15"/>
+          <g fill="#2b1a0d"><rect x="190" y="182" width="6" height="170"/><rect x="390" y="182" width="6" height="170"/></g>
+          <path d="M150 236 Q150 168 210 168 Q166 168 166 236 L166 352 L150 352Z" fill="url(#endcap)"/>
+          <rect x="250" y="226" width="80" height="126" rx="10" fill="#3a2412"/>
+          <rect class="window-glow" x="258" y="234" width="64" height="118" rx="7" fill="url(#win)"/>
+          <line x1="290" y1="234" x2="290" y2="352" stroke="#3a2412" stroke-width="4"/>
+          <rect x="398" y="128" width="14" height="44" fill="#2b2b2b"/>
+          <g class="steam" fill="none" stroke="#eef2ec" stroke-width="5" stroke-linecap="round">
+            <path d="M405 120 q-14 -18 0 -36 q14 -18 0 -36"/>
+            <path d="M405 120 q12 -16 -2 -34 q-12 -18 4 -36"/>
+            <path d="M405 120 q-8 -20 6 -38 q12 -16 -4 -34"/>
+          </g>
+          <g fill="#f4b45e"><rect x="250" y="362" width="80" height="4" rx="2" opacity=".5"/></g>
+        </svg>
       </div>
     </div>
   </section>
 
+  <div class="trust">
+    <div class="wrap">
+      <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 16V6h11v10M14 9h4l3 3v4h-7"/><circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/></svg><span>Doprava až k vám<small>Praha a Středočeský kraj</small></span></div>
+      <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18l3 3 6.3-6.3a4 4 0 0 0 5.4-5.4l-2.5 2.5-2.4-.6-.6-2.4z"/></svg><span>Montáž za 1–2 dny<small>na připravený základ</small></span></div>
+      <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 4 14h7l-1 8 9-12h-7z"/></svg><span>Zapojení elektrikářem<small>400 V, jistič a revize</small></span></div>
+      <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 4 6v6c0 5 3.5 8 8 9 4.5-1 8-4 8-9V6z"/><path d="m9 12 2 2 4-4"/></svg><span>Záruka 24 měsíců<small>reklamace vyřídíme za vás</small></span></div>
+    </div>
+  </div>
+
   <section id="sauny">
     <div class="wrap">
       <div class="sec-head">
+        <div class="eyebrow">Katalog</div>
         <h2>Zahradní sauny</h2>
-        <span class="note">Orientační ceny vč. DPH a dopravy, přepočteno ze zlotých.</span>
+        <p>Sudy, kapsle POD, moderní kostky Patio a zaoblené Round Cube. Filtrujte podle řady a porovnejte rozměry. <span class="note">Ceny jsou orientační vč. DPH.</span></p>
       </div>
       <div class="toolbar">
         <div class="filters" role="group" aria-label="Řada saun">
@@ -201,8 +317,9 @@ footer .wrap{padding-block:28px;display:flex;justify-content:space-between;gap:1
   <section id="konfigurator">
     <div class="wrap">
       <div class="sec-head">
+        <div class="eyebrow">Na míru</div>
         <h2>Sestavte si sudovou saunu</h2>
-        <span class="note">Sud Classic: zvolte délku a doplňky, cena se počítá hned.</span>
+        <p>Ručně vyráběný Sud Classic. Zvolte délku, předsíň, okno a kamna Harvia, cena se přepočítá hned.</p>
       </div>
       <div class="konf">
         <div class="konf-opts">
@@ -212,9 +329,9 @@ footer .wrap{padding-block:28px;display:flex;justify-content:space-between;gap:1
           <fieldset><legend>Kamna Harvia vč. montáže</legend><div class="opts" id="k-kamna"></div></fieldset>
         </div>
         <aside class="konf-sum" aria-live="polite">
-          <div class="art" id="k-art"></div>
+          <div class="frame" id="k-art"></div>
           <div class="sum-in">
-            <span class="type">Vaše sestava</span>
+            <span class="eyebrow">Vaše sestava</span>
             <dl class="specs" id="k-rozpis"></dl>
             <div class="total"><span>Celkem orientačně</span><span class="price mono" id="k-total"></span></div>
             <button class="btn primary" id="k-poptat" type="button">Poptat tuto sestavu</button>
@@ -224,22 +341,38 @@ footer .wrap{padding-block:28px;display:flex;justify-content:space-between;gap:1
     </div>
   </section>
 
+  <section id="drevo">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="eyebrow">Materiál</div>
+        <h2>Z jakého dřeva</h2>
+        <p>Dřevo rozhoduje o vůni, údržbě i životnosti sauny. Nabízíme tři osvědčené druhy.</p>
+      </div>
+      <div class="woods">
+        <div class="wood"><div class="grain smrk"></div><div><span class="mono">40 mm · sudy BS, RelaxMini</span><h3>Severský smrk</h3><p>Světlé dřevo s jemnou kresbou a příjemnou cenou. Venku potřebuje ochranný nátěr.</p></div></div>
+        <div class="wood"><div class="grain thermo"></div><div><span class="mono">40 mm · Patio, Round Cube</span><h3>Termoborovice</h3><p>Tepelně upravené dřevo, které nesesychá a odolá vlhkosti bez chemie. Postupně zešedne do stříbrna.</p></div></div>
+        <div class="wood"><div class="grain cedr"></div><div><span class="mono">38 mm · Cabana Infrared</span><h3>Kanadský červený cedr</h3><p>Prémiové dřevo s výraznou vůní. Přirozeně odolává hnilobě i hmyzu.</p></div></div>
+      </div>
+    </div>
+  </section>
+
   <section id="postup" style="background:var(--surface);border-block:1px solid var(--line)">
     <div class="wrap">
-      <div class="sec-head"><h2>Jak to probíhá</h2></div>
+      <div class="sec-head"><div class="eyebrow">Postup</div><h2>Jak to probíhá</h2></div>
       <div class="steps">
-        <div class="step"><b>KROK 1</b><h3>Konzultace</h3><p>Probereme místo, velikost a rozpočet. Přijedeme na zaměření zdarma po Praze.</p></div>
-        <div class="step"><b>KROK 2</b><h3>Nabídka</h3><p>Do 3 pracovních dnů pošleme cenu včetně dopravy, montáže a elektroinstalace.</p></div>
-        <div class="step"><b>KROK 3</b><h3>Montáž</h3><p>Saunu sestavíme za 1 až 2 dny. Kamna připojíme na 400 V s vlastním jističem.</p></div>
-        <div class="step"><b>KROK 4</b><h3>Předání</h3><p>Ukážeme ovládání, první zatopení a péči o dřevo. Revizní zpráva je součástí.</p></div>
+        <div class="step"><b>01</b><h3>Konzultace</h3><p>Probereme místo, velikost a rozpočet. Přijedeme na zaměření zdarma po Praze.</p></div>
+        <div class="step"><b>02</b><h3>Nabídka</h3><p>Do 3 pracovních dnů pošleme cenu včetně dopravy, montáže a elektroinstalace.</p></div>
+        <div class="step"><b>03</b><h3>Montáž</h3><p>Saunu sestavíme za 1 až 2 dny. Kamna připojíme na 400 V s vlastním jističem.</p></div>
+        <div class="step"><b>04</b><h3>Předání</h3><p>Ukážeme ovládání, první zatopení a péči o dřevo. Revizní zpráva je součástí.</p></div>
       </div>
     </div>
   </section>
 
   <section id="kontakt">
     <div class="wrap contact">
-      <div class="info">
-        <h2 style="font-size:clamp(30px,4vw,44px)">Nezávazná poptávka</h2>
+      <div class="info sec-head">
+        <div class="eyebrow">Kontakt</div>
+        <h2>Nezávazná poptávka</h2>
         <p>Napište nám, co si představujete. Ozveme se do 24 hodin v pracovní dny.</p>
         <dl>
           <dt>Telefon</dt><dd class="mono">+420 000 000 000</dd>
@@ -255,10 +388,10 @@ footer .wrap{padding-block:28px;display:flex;justify-content:space-between;gap:1
         <label for="email">E-mail<input id="email" name="email" type="email" required autocomplete="email"></label>
         <div class="two">
           <label for="model">Model<select id="model" name="model"><option value="">Zatím nevím</option></select></label>
-          <label for="misto">Umístění<select id="misto" name="misto"><option>Interiér</option><option>Zahrada</option><option>Terasa</option></select></label>
+          <label for="misto">Umístění<select id="misto" name="misto"><option>Zahrada</option><option>Terasa</option><option>Jiné</option></select></label>
         </div>
-        <label for="zprava">Zpráva<textarea id="zprava" name="zprava" placeholder="Např. rozměry místnosti, Praha 6, termín na jaro"></textarea></label>
-        <button class="btn primary" type="submit">Odeslat poptávku</button>
+        <label for="zprava">Zpráva<textarea id="zprava" name="zprava" placeholder="Např. Praha 6, základ už máme, termín na jaro"></textarea></label>
+        <button class="btn glow" type="submit">Odeslat poptávku</button>
         <div class="ok" id="ok" hidden>Děkujeme, poptávku jsme přijali. Ozveme se do 24 hodin.</div>
       </form>
     </div>
@@ -267,7 +400,8 @@ footer .wrap{padding-block:28px;display:flex;justify-content:space-between;gap:1
 
 <footer>
   <div class="wrap">
-    <span>© 2026 žár. sauny Praha</span>
+    <span><a class="logo" href="#top">žár<span>.</span></a></span>
+    <span>© 2026 · Zahradní sauny, montáž a elektroinstalace · Praha</span>
     <span>Prodej, montáž a elektroinstalace saun</span>
   </div>
 </footer>
@@ -334,9 +468,11 @@ function render(){
   count.textContent=`${list.length} ${list.length===1?"model":list.length<5?"modely":"modelů"}`;
   grid.innerHTML=list.map(s=>`
     <article class="card">
-      <div class="art">${FOTO[s.id]&&window.WEB?`<img src="${FOTO_BASE+FOTO[s.id]}" alt="${s.nazev}" loading="lazy" onerror="this.replaceWith(document.createRange().createContextualFragment(art('${s.rada}')))">`:art(s.rada)}</div>
+      <div class="frame">
+        <div class="tag"><span>${rady[s.rada]}</span>${s.skladem?'<span class="stock">Skladem</span>':""}${s.konfig?'<span class="custom">Na míru</span>':""}</div>
+        ${FOTO[s.id]&&window.WEB?`<img class="${FOTO[s.id].endsWith(".png")?"cut":""}" src="${FOTO_BASE+FOTO[s.id]}" alt="${s.nazev}" loading="lazy" onerror="this.replaceWith(document.createRange().createContextualFragment(art('${s.rada}')))">`:art(s.rada)}
+      </div>
       <div class="body">
-        <div class="badges"><span class="type">${rady[s.rada]}</span>${s.skladem?'<span class="badge stock">Skladem</span>':""}${s.konfig?'<span class="badge">Na míru</span>':""}</div>
         <h3>${s.nazev}</h3>
         <p>${s.popis}</p>
         <dl class="specs">
@@ -347,8 +483,8 @@ function render(){
           ${s.kg?`<dt>Hmotnost</dt><dd>${s.kg.toLocaleString("cs-CZ")} kg</dd>`:""}
         </dl>
         <div class="foot">
-          <span class="price">${s.konfig?"od ":""}${kc(s.pln)} Kč <small>${s.konfig?"základ":"vč. DPH"}</small></span>
-          ${s.konfig?`<button class="btn primary" data-konf="${s.id}" type="button">Sestavit</button>`:`<button class="btn ghost" data-id="${s.id}" type="button">Poptat</button>`}
+          <span class="price"><small>${s.konfig?"základní cena od":"cena vč. DPH"}</small>${kc(s.pln)} Kč</span>
+          ${s.konfig?`<button class="btn primary" data-konf="${s.id}" type="button">Sestavit</button>`:`<button class="btn primary" data-id="${s.id}" type="button">Poptat</button>`}
         </div>
       </div>
     </article>`).join("");
